@@ -21,7 +21,11 @@ def load_data(file_path="data/AirQualityUCI.csv"):
     """
     try:
         # Load data with semicolon separator
-        df = pd.read_csv(file_path, sep=';')
+        df = pd.read_csv(
+            file_path,
+            sep=';',
+            na_values=[-200, "-200"]
+        )
         
         # Remove empty columns (the dataset has trailing semicolons)
         df = df.dropna(axis=1, how='all')
@@ -80,6 +84,8 @@ def clean_data(df):
             df_clean[col] = df_clean[col].astype(str).str.replace(',', '.')
             df_clean[col] = pd.to_numeric(df_clean[col], errors='coerce')
     
+    df_clean.replace(-200, np.nan, inplace=True)
+
     return df_clean
 
 
