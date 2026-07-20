@@ -21,7 +21,7 @@ def load_data(file_path="data/AirQualityUCI.csv"):
     """
     try:
         # Load data with semicolon separator
-        df = pd.read_csv(file_path, sep=';')
+        df = pd.read_csv(file_path, sep=';', na_values=-200)
         
         # Remove empty columns (the dataset has trailing semicolons)
         df = df.dropna(axis=1, how='all')
